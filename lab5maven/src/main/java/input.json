@@ -1,0 +1,37 @@
+{"products": [
+  {
+    "id": 1,
+    "name": "Pain",
+    "coordinates":
+    {
+      "x": 0,
+      "y": 0
+    },
+    "price": 59.99,
+    "unitOfMeasure": "KILOGRAMS",
+    "organization": {
+      "id": 1,
+      "name": "Russia",
+      "annualTurnover": 1445000000.0,
+      "type": "GOVERNMENT"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Tears",
+    "coordinates":
+    {
+      "x": 0,
+      "y": 0
+    },
+    "price": 0.01,
+    "unitOfMeasure": "LITERS",
+    "organization": {
+      "id": 20,
+      "name": "Sveta",
+      "annualTurnover": 1.5,
+      "type": "PRIVATE_LIMITED_COMPANY"
+    }
+  }
+]
+}
