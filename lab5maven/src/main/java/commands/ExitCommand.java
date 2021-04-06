@@ -1,7 +1,7 @@
 package commands;
 
 public class ExitCommand {
-    public void exit(){
+    public static void exit(){
         System.exit(0);
     }
 }

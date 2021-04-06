@@ -1,5 +1,9 @@
 package commands;
 
+import tools.Console;
+
 public class SortCommand {
-    //просто вывести все объекты подряд
+    public static void sort(Console console) {
+        System.out.println(console.show());
+    }
 }

@@ -43,4 +43,11 @@ public class Organization {
     public void setType(OrganizationType type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        String s = "";
+        s+=" id: "+this.id.toString()+",\n name: "+this.name+",\n annualTurnover: "+this.annualTurnover.toString()+",\n type: "+this.type+"\n -----\n";
+        return s;
+    }
 }

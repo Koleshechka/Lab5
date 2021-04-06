@@ -23,4 +23,11 @@ public class Coordinates {
     public void setY(int y) {
         this.y = y;
     }
+
+    @Override
+    public String toString() {
+        String s= "";
+        s+=" x: "+Integer.toString(this.x)+",\n y: "+Integer.toString(this.y);
+        return s;
+    }
 }

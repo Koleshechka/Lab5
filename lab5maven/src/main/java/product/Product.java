@@ -21,6 +21,16 @@ public class Product{
         this.creationDate = ZonedDateTime.now();
     }
 
+    public Product(String name, int x, int y, Double price, UnitOfMeasure unitOfMeasure, String nameOfOrg, Double annualTurnover, OrganizationType type) {
+        this.id = (Long)Math.round((double) Math.random()*2147483647);
+        this.name = name;
+        this.coordinates = new Coordinates(x,y);
+        this.price = price;
+        this.unitOfMeasure = unitOfMeasure;
+        this.manufacturer = new Organization(nameOfOrg, annualTurnover, type);
+        this.creationDate = ZonedDateTime.now();
+    }
+
 
     public Long getId() {
         return id;
@@ -78,4 +88,10 @@ public class Product{
         this.manufacturer = manufacturer;
     }
 
+    @Override
+    public String toString() {
+        String s = "";
+        s+=" id: "+ this.id.toString()+",\n name: "+this.name+",\n coordinates: \n"+this.coordinates.toString()+",\n creationDate: "+this.creationDate.toString()+",\n price: "+this.price.toString()+",\n unitOfMeasure: "+this.unitOfMeasure.toString()+",\n manufacturer: \n"+this.manufacturer.toString();
+        return s;
+    }
 }

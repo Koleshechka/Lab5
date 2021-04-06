@@ -1,5 +1,9 @@
 package commands;
 
+import tools.*;
+
 public class ClearCommand {
-    //обработать на исключение если коллекция пустая
+    public static void clear(Console console) {
+        console.clear();
+    }
 }

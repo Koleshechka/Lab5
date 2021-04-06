@@ -1,16 +1,17 @@
-{"products": [
+[
   {
     "id": 1,
     "name": "Pain",
     "coordinates":
     {
-      "x": 0,
-      "y": 0
+      "x": null,
+      "y": null
     },
+    "creationDate": "",
     "price": 59.99,
     "unitOfMeasure": "KILOGRAMS",
-    "organization": {
-      "id": 1,
+    "manufacturer": {
+      "id": "",
       "name": "Russia",
       "annualTurnover": 1445000000.0,
       "type": "GOVERNMENT"
@@ -24,9 +25,10 @@
       "x": 0,
       "y": 0
     },
+    "creationDate": "2021-04-05T16:45:36.289913+03:00[Europe/Moscow]",
     "price": 0.01,
     "unitOfMeasure": "LITERS",
-    "organization": {
+    "manufacturer": {
       "id": 20,
       "name": "Sveta",
       "annualTurnover": 1.5,
@@ -34,4 +36,3 @@
     }
   }
 ]
-}
