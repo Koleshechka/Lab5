@@ -12,7 +12,7 @@ import java.util.*;
 
 public class Console {
     private LinkedList <Product> collection = new LinkedList<>();
-    private final JsonParser jsonParser;
+    private JsonParser jsonParser;
     private HashMap<String, String> map = new HashMap<>();
     private ZonedDateTime collectionDate;
 
@@ -31,6 +31,10 @@ public class Console {
                 return o1.getCreationDate().compareTo(o2.getCreationDate());
             }
         });
+    }
+
+    public Console() {
+        collectionDate = ZonedDateTime.now();
     }
 
 
