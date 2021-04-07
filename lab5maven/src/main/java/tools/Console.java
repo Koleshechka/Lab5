@@ -1,8 +1,6 @@
 package tools;
 
-import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import product.*;
 import commands.*;
 
@@ -11,13 +9,12 @@ import java.time.ZonedDateTime;
 import java.util.*;
 
 public class Console {
-    private LinkedList <Product> collection = new LinkedList<>();
-    private JsonParser jsonParser;
-    private HashMap<String, String> map = new HashMap<>();
-    private ZonedDateTime collectionDate;
+    private final LinkedList <Product> collection = new LinkedList<>();
+    private final HashMap<String, String> map = new HashMap<>();
+    private final ZonedDateTime collectionDate;
 
     public Console(String path) {
-        jsonParser = new JsonParser(path);
+        JsonParser jsonParser = new JsonParser(path);
         collection.addAll(jsonParser.reading());
         LinkedList <ZonedDateTime> dateList = new LinkedList<>();
         for (Product product : collection) {
@@ -40,15 +37,15 @@ public class Console {
 
 
 
-    public void read(String s, InputStream stream) throws IOException {
+    public void read(String s, Scanner scanner, boolean isFile) throws IOException {
         String[] commandAll = s.split(" ");
         String command = commandAll[0];
         switch(command) {
             case "help": HelpCommand.help();break;
             case "info": InfoCommand.info(this);break;
             case "show": ShowCommand.show(this);break;
-            case "add": AddCommand.add(this, stream,null);break;
-            case "update": UpdateCommand.update(this, commandAll[1], stream);break;
+            case "add": AddCommand.add(this, scanner,null, isFile);break;
+            case "update": UpdateCommand.update(this, commandAll[1], scanner, isFile);break;
             case "remove_by_id": RemoveCommand.remove(this, commandAll[1]);break;
             case "clear": ClearCommand.clear(this);break;
             case "exit": ExitCommand.exit();break;
@@ -62,7 +59,6 @@ public class Console {
             case "sort": SortCommand.sort(this);break;
             default: System.out.println("Неверная команда. Введите help для справки по доступным командам.");
             }
-
     }
 
     public void addToCollection(Product product) {
@@ -76,22 +72,21 @@ public class Console {
     }
 
     public String info() {
-        String s = "LinkedList <Product> collection, "+ collectionDate.toString()+", "+ Integer.toString(collection.size()) + " elements.";
-        return s;
+        return "LinkedList <Product> collection, "+ collectionDate.toString()+", "+ collection.size() + " elements.";
     }
 
     public String show() {
         if (collection.size()==0) {
             System.out.println("В коллекции нет элементов.");
         }
-        String s = "";
+        StringBuilder s = new StringBuilder();
         for (Product product : collection) {
-            s+=product.toString();
+            s.append(product.toString());
         }
-        return s;
+        return s.toString();
     }
 
-    public boolean removeId(Long id) {
+    public boolean removeId(long id) {
         boolean isId = false;
         for (Product product : collection) {
             if (product.getId() == id) {
@@ -147,75 +142,34 @@ public class Console {
         for (Product product : collection) {
             priceSet.add(product.getPrice());
         }
-        if (priceSet.size()!=0) {
+        if (priceSet.size() != 0) {
             System.out.println(priceSet.toString());
         } else System.out.println("В коллекции нет элементов.");
     }
 
 
-
-    public void writing() throws IOException{
+    public void writing() throws IOException {
         OutputStream g = new FileOutputStream("output.json");
         ObjectMapper mapper = new ObjectMapper();
-        StringWriter writer = new StringWriter();
         mapper.findAndRegisterModules();
-
-        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-
         OutputStreamWriter gg = new OutputStreamWriter(g);
-        mapper.writeValue(writer, collection);
-        gg.write(writer.toString());
+        gg.write(mapper.writeValueAsString(collection));
         gg.close();
         System.out.println("Коллекция сохранена в файл.");
     }
-    /*
 
-    public void writing() throws IOException{
-        OutputStream g = new FileOutputStream("/Users/svetlana/Documents/GitHub/Lab5/lab5maven/src/main/java/output.json");
-        StringWriter writer = new StringWriter();
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-
-        LinkedList<Probuct> list = new LinkedList<>();
-        for (Product product: collection) {
-            list.add(new Probuct(product));
-        }
-        OutputStreamWriter gg = new OutputStreamWriter(g);
-        mapper.writeValue(writer, list);
-        gg.write(writer.toString());
-        gg.close();
-    }
-
-     */
 
     public void reading(InputStream stream) {
         String command;
         Scanner scanner = new Scanner(stream);
         try {
-            while (scanner.hasNext()) {
+            while (scanner.hasNextLine()) {
                 command = scanner.nextLine();
-                read(command, stream);
+                read(command, scanner, stream != System.in);
             }
-        }catch (Exception e) {
-            System.out.println(e.toString());
-        }
-    }
-
-    public void readingScript(InputStream stream) {
-        String command;
-        Scanner scanner = new Scanner(stream);
-        try {
-            while (scanner.hasNext()) {
-                command = scanner.nextLine();
-                if (command.equals("")) throw new Exception("");
-                else read(command, stream);
-            }
-        }catch (Exception e) {
-            System.out.println("Неверный файл.");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }

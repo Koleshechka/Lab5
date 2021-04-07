@@ -72,7 +72,7 @@ public class JsonParser {
                         nameOfOrg = (String) organizationJSO.get("name");
                     }
 
-                    Double annualTurnover;
+                    double annualTurnover;
                     if (organizationJSO.get("annualTurnover") == null || organizationJSO.get("annualTurnover").equals("") || (double) organizationJSO.get("annualTurnover") <= 0) {
                         annualTurnover = 1.0;
                     } else {
@@ -118,7 +118,7 @@ public class JsonParser {
                         name = (String) productJsonObject.get("name");
                     }
 
-                    Double price;
+                    double price;
                     if (productJsonObject.get("price") == null || productJsonObject.get("price").equals("") || (double) productJsonObject.get("price") <= 0) {
                         price = 1.0;
                     } else {

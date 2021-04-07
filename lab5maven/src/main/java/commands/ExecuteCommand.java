@@ -3,19 +3,25 @@ package commands;
 import tools.Console;
 
 import java.io.*;
-import java.util.ArrayDeque;
-import java.util.Deque;
 
 public class ExecuteCommand {
 
     public static void execute(Console console, String arg) {
+        InputStream stream = null;
         try {
-            File a = new File(arg);
-            InputStream stream = new FileInputStream(a);
-            console.readingScript(stream);
-        }catch (IOException e) {
+            stream = new FileInputStream(arg);
+            console.reading(stream);
+        } catch (IOException e) {
             System.out.println(e.toString());
+        } finally {
+            if (stream != null) {
+                try {
+                    stream.close();
+                    System.out.println("Выполнение скрипта закончено.");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
-
 }

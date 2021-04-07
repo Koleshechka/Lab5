@@ -1,26 +1,31 @@
 package commands;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.Scanner;
+
 import tools.*;
 import product.*;
 
 public class AddCommand {
-    public static void add(Console console, InputStream stream, Long id) {
+    public static void add(Console console, Scanner scanner, Long id, boolean isFile) {
         String name = "";
         int x = 0;
         int y = 0;
-        Double price = 0.0;
+        double price = 0.0;
         UnitOfMeasure unitOfMeasure = null;
         String nameOfOrg = "";
-        Double annualTurnover = 0.0;
+        double annualTurnover = 0.0;
         OrganizationType type = null;
 
         while (true) {
             System.out.println("Введите название продукта:");
-            name = ReadCommand.readForAdd(stream);
+            name = ReadCommand.readForAdd(scanner);
             if (name.equals("")) {
+                if (isFile) {
+                    System.out.println("Неправильный формат, мы не сможем добавить этот элемент в коллекцию.");
+                    return;
+                }
                 System.out.println("Вы ничего не ввели. Попробуйте еще раз.");
+
             }
             else break;
         }
@@ -30,9 +35,13 @@ public class AddCommand {
         while(true) {
             System.out.println("Введите X:");
             try {
-                x = Integer.parseInt(ReadCommand.readForAdd(stream));
+                x = Integer.parseInt(ReadCommand.readForAdd(scanner));
                 break;
             } catch (NumberFormatException e) {
+                if (isFile) {
+                    System.out.println("Неправильный формат, мы не сможем добавить этот элемент в коллекцию.");
+                    return;
+                }
                 System.out.println("X - целое число. Попробуйте еще раз.");
             }
         }
@@ -40,9 +49,13 @@ public class AddCommand {
         while(true) {
             System.out.println("Введите Y:");
             try {
-                y = Integer.parseInt(ReadCommand.readForAdd(stream));
+                y = Integer.parseInt(ReadCommand.readForAdd(scanner));
                 break;
             } catch (NumberFormatException e) {
+                if (isFile) {
+                    System.out.println("Неправильный формат, мы не сможем добавить этот элемент в коллекцию.");
+                    return;
+                }
                 System.out.println("Y - целое число. Попробуйте еще раз.");
             }
         }
@@ -50,11 +63,15 @@ public class AddCommand {
         while(true) {
             System.out.println("Введите цену:");
             try {
-                price = Double.parseDouble(ReadCommand.readForAdd(stream));
+                price = Double.parseDouble(ReadCommand.readForAdd(scanner));
                 if (price <= 0) {
                     throw new NumberFormatException("");
                 } else break;
             } catch (NumberFormatException e) {
+                if (isFile) {
+                    System.out.println("Неправильный формат, мы не сможем добавить этот элемент в коллекцию.");
+                    return;
+                }
                 System.out.println("Цена - вещественное число, строго большее нуля. Попробуйте еще раз.");
             }
         }
@@ -62,7 +79,7 @@ public class AddCommand {
         while(true) {
            System.out.println("Введите единицы измерения:\nДоступные варианты: KILOGRAMS, CENTIMETERS, LITERS");
            try {
-               String s = ReadCommand.readForAdd(stream);
+               String s = ReadCommand.readForAdd(scanner);
                switch (s) {
                    case "KILOGRAMS": unitOfMeasure = UnitOfMeasure.KILOGRAMS;break;
                    case "CENTIMETERS": unitOfMeasure = UnitOfMeasure.CENTIMETERS;break;
@@ -71,6 +88,10 @@ public class AddCommand {
                }
                break;
            }catch (Exception e) {
+               if (isFile) {
+                   System.out.println("Неправильный формат, мы не сможем добавить этот элемент в коллекцию.");
+                   return;
+               }
                System.out.println("Обратите внимание на доступные варианты.");
            }
         }
@@ -79,8 +100,12 @@ public class AddCommand {
 
         while (true) {
             System.out.println("Введите название организации:");
-            nameOfOrg = ReadCommand.readForAdd(stream);
+            nameOfOrg = ReadCommand.readForAdd(scanner);
             if (nameOfOrg == "") {
+                if (isFile) {
+                    System.out.println("Неправильный формат, мы не сможем добавить этот элемент в коллекцию.");
+                    return;
+                }
                 System.out.println("Вы ничего не ввели. Попробуйте еще раз.");
             } else break;
         }
@@ -88,11 +113,15 @@ public class AddCommand {
         while (true) {
             System.out.println("Введите годовой оборот организации");
             try {
-                annualTurnover = Double.parseDouble(ReadCommand.readForAdd(stream));
-                if (annualTurnover == null || annualTurnover <=0) {
+                annualTurnover = Double.parseDouble(ReadCommand.readForAdd(scanner));
+                if (annualTurnover <=0) {
                     throw new NumberFormatException("");
                 } else break;
             } catch (NumberFormatException e) {
+                if (isFile) {
+                    System.out.println("Неправильный формат, мы не сможем добавить этот элемент в коллекцию.");
+                    return;
+                }
                 System.out.println("Годовой оборот организации - вещественное число, строго большее нуля. Попробуйте еще раз.");
             }
         }
@@ -100,7 +129,7 @@ public class AddCommand {
         while (true) {
             System.out.println("Введите тип организации:\nДоступные варианты: COMMERCIAL, PUBLIC, GOVERNMENT, PRIVATE_LIMITED_COMPANY, OPEN_JOINT_STOCK_COMPANY");
             try {
-                String s = ReadCommand.readForAdd(stream);
+                String s = ReadCommand.readForAdd(scanner);
                 switch (s) {
                     case "COMMERCIAL": type = OrganizationType.COMMERCIAL;break;
                     case "PUBLIC": type = OrganizationType.PUBLIC;break;
@@ -111,6 +140,10 @@ public class AddCommand {
                 }
                 break;
             }catch (Exception e) {
+                if (isFile) {
+                    System.out.println("Неправильный формат, мы не сможем добавить этот элемент в коллекцию.");
+                    return;
+                }
                 System.out.println("Обратите внимание на доступные варианты.");
             }
         }
