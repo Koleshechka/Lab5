@@ -1,5 +1,4 @@
-add
-name
-X
-X
-1
+execute_script /Users/svetlana/Documents/GitHub/Lab5/lab5maven/src/main/java/scriptfile2
+show
+^D
+execute_script /Users/svetlana/Documents/GitHub/Lab5/lab5maven/src/main/java/scriptfile2

@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": "",
     "name": "Pain",
     "coordinates":
     {
@@ -18,7 +18,7 @@
     }
   },
   {
-    "id": 2,
+    "id": "",
     "name": "Tears",
     "coordinates":
     {
@@ -29,7 +29,7 @@
     "price": 0.01,
     "unitOfMeasure": "LITERS",
     "manufacturer": {
-      "id": 20,
+      "id": 2,
       "name": "Sveta",
       "annualTurnover": 1.5,
       "type": "PRIVATE_LIMITED_COMPANY"

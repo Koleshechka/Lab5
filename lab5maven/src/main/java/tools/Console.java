@@ -22,20 +22,12 @@ public class Console {
         }
         collectionDate = Collections.min(dateList);
 
-        collection.sort(new Comparator<Product>() {
-            @Override
-            public int compare(Product o1, Product o2) {
-                return o1.getCreationDate().compareTo(o2.getCreationDate());
-            }
-        });
+        collection.sort(Comparator.comparing(Product::getCreationDate));
     }
 
     public Console() {
         collectionDate = ZonedDateTime.now();
     }
-
-
-
 
     public void read(String s, Scanner scanner, boolean isFile) throws IOException {
         String[] commandAll = s.split(" ");
@@ -63,12 +55,7 @@ public class Console {
 
     public void addToCollection(Product product) {
         this.collection.add(product);
-        collection.sort(new Comparator<Product>() {
-            @Override
-            public int compare(Product o1, Product o2) {
-                return o1.getCreationDate().compareTo(o2.getCreationDate());
-            }
-        });
+        collection.sort(Comparator.comparing(Product::getCreationDate));
     }
 
     public String info() {
@@ -87,20 +74,21 @@ public class Console {
     }
 
     public boolean removeId(long id) {
-        boolean isId = false;
+        int i = 0;
         for (Product product : collection) {
             if (product.getId() == id) {
-                collection.remove(product);
-                isId = true;
-                break;
+                return removeIndex(i);
             }
+            i++;
         }
-        return isId;
+        return false;
     }
 
     public void clear() {
-        if (collection.size()!=0) {
-            collection.clear();
+        if (collection.size() != 0) {
+            while (collection.size() > 0) {
+                removeIndex(0);
+            }
             System.out.println("Все элементы коллекции удалены.");
         }
         else System.out.println("В коллекции и так нет элементов.");
@@ -108,30 +96,28 @@ public class Console {
 
 
     public boolean removeIndex(int index) {
-        boolean isIndex = false;
-        if (index <= collection.size()) {
+        if (index < collection.size()) {
+            collection.get(index).removeByID();
             collection.remove(index);
-            isIndex = true;
+            return true;
         }
-        return isIndex;
+        return false;
     }
 
     public boolean removeFirst(){
-        boolean is = false;
-        if (collection!= null) {
-            collection.removeFirst();
-            is = true;
-        }
-        return is;
+        return removeIndex(0);
     }
 
-    public boolean removePrice(Double price){
+    public boolean removePrice(Double price) {
+        int i = 0;
         boolean isPrice = false;
         for(Product product : collection) {
             if (product.getPrice().equals(price)) {
-                collection.remove(product);
+                removeIndex(i);
+                i--;
                 isPrice = true;
             }
+            i++;
         }
         return isPrice;
     }

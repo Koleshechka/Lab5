@@ -3,25 +3,21 @@ package commands;
 import tools.Console;
 
 import java.io.*;
+import java.util.HashSet;
 
 public class ExecuteCommand {
 
-    public static void execute(Console console, String arg) {
-        InputStream stream = null;
-        try {
-            stream = new FileInputStream(arg);
-            console.reading(stream);
-        } catch (IOException e) {
-            System.out.println(e.toString());
-        } finally {
-            if (stream != null) {
-                try {
-                    stream.close();
-                    System.out.println("Выполнение скрипта закончено.");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+    static HashSet<String> fileNames = new HashSet<>();
+
+    public static void execute(Console console, String arg) throws IOException {
+        if (fileNames.contains(arg)) {
+            throw new IOException("Не надо строить циклы из script файлов!");
         }
+        InputStream stream = new FileInputStream(arg);
+        fileNames.add(arg);
+        console.reading(stream);
+        fileNames.remove(arg);
+        System.out.println("Чтение script файла окончено: имя файла = " + arg);
+        stream.close();
     }
 }

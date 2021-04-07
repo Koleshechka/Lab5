@@ -1,14 +1,21 @@
 package tools;
 
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import product.*;
+
 import java.io.*;
 import java.time.ZonedDateTime;
+import java.util.HashSet;
 import java.util.LinkedList;
+
+
 
 import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
-import product.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+
 
 
 public class JsonParser {
@@ -46,9 +53,11 @@ public class JsonParser {
                     if (coordinatesJSO.get("x") == null || coordinatesJSO.get("y") == null || coordinatesJSO.get("x").equals("") || coordinatesJSO.get("y").equals("")) {
                         if (coordinatesJSO.get("x") == null || coordinatesJSO.get("x").equals("")) {
                             x = 0;
+                            System.out.println("Значение координаты X не верно, присвоено стандартное: X=0");
                         }
                         if (coordinatesJSO.get("y") == null || coordinatesJSO.get("y").equals("")) {
                             y = 0;
+                            System.out.println("Значение координаты Y не верно, присвоено стандартное: Y=0");
                         }
                     } else {
                         x = (int) (long) coordinatesJSO.get("x");
@@ -60,7 +69,7 @@ public class JsonParser {
                     JSONObject organizationJSO = (JSONObject) productJsonObject.get("manufacturer");
                     long idOfOrg;
                     if (organizationJSO.get("id") == null || organizationJSO.get("id").equals("") || (long) organizationJSO.get("id") <= 0) {
-                        idOfOrg = (Long) Math.round((double) Math.random() * 2147483647);
+                        idOfOrg = -1;
                     } else {
                         idOfOrg = (long) organizationJSO.get("id");
                     }
@@ -68,6 +77,7 @@ public class JsonParser {
                     String nameOfOrg;
                     if (organizationJSO.get("name") == null || organizationJSO.get("name").equals("")) {
                         nameOfOrg = "noname";
+                        System.out.println("Имя организации не верно, присвоено стандартное: noname");
                     } else {
                         nameOfOrg = (String) organizationJSO.get("name");
                     }
@@ -75,6 +85,7 @@ public class JsonParser {
                     double annualTurnover;
                     if (organizationJSO.get("annualTurnover") == null || organizationJSO.get("annualTurnover").equals("") || (double) organizationJSO.get("annualTurnover") <= 0) {
                         annualTurnover = 1.0;
+                        System.out.println("Значение годового оборота  не верно, присвоено стандартное: 1.0");
                     } else {
                         annualTurnover = (double) organizationJSO.get("annualTurnover");
                     }
@@ -98,6 +109,7 @@ public class JsonParser {
                             type = OrganizationType.OPEN_JOINT_STOCK_COMPANY;
                             break;
                         default:
+                            System.out.println("Тип организации задан не верно, мы не можем присвоить ему стандартное значение. Мы не можем добавить этот объект в коллекцию");
                             continue;
                     }
                     Organization organization = new Organization(nameOfOrg, annualTurnover, type);
@@ -106,7 +118,7 @@ public class JsonParser {
 
                     long id;
                     if (productJsonObject.get("id") == null || productJsonObject.get("id").equals("") || (long) productJsonObject.get("id") <= 0) {
-                        id = (Long) Math.round((double) Math.random() * 2147483647);
+                        id = -1;
                     } else {
                         id = (long) productJsonObject.get("id");
                     }
@@ -114,6 +126,7 @@ public class JsonParser {
                     String name;
                     if (productJsonObject.get("name") == null || productJsonObject.get("name").equals("")) {
                         name = "noname";
+                        System.out.println("Название продукта не верно, присвоено стандартное: noname");
                     } else {
                         name = (String) productJsonObject.get("name");
                     }
@@ -121,6 +134,7 @@ public class JsonParser {
                     double price;
                     if (productJsonObject.get("price") == null || productJsonObject.get("price").equals("") || (double) productJsonObject.get("price") <= 0) {
                         price = 1.0;
+                        System.out.println("Значение цены не верно, присвоено стандартное: 1.0");
                     } else {
                         price = (double) productJsonObject.get("price");
                     }
@@ -139,6 +153,7 @@ public class JsonParser {
                             unitOfMeasure = UnitOfMeasure.LITERS;
                             break;
                         default:
+                            System.out.println("Тип единиц измерения задан не верно, мы не можем присвоить ему стандартное значение. Мы не можем добавить этот объект в коллекцию");
                             continue;
                     }
                     Product product = new Product(name, coordinates, price, unitOfMeasure, organization);
@@ -147,7 +162,7 @@ public class JsonParser {
                         ZonedDateTime creationDate = ZonedDateTime.parse(productJsonObject.get("creationDate").toString());
                         product.setCreationDate(creationDate);
                     } catch (Exception e) {
-                        System.out.println("CreationDate error");
+                        System.out.println("");
                     }
                     minicollection.add(product);
                 }

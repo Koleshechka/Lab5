@@ -149,7 +149,7 @@ public class AddCommand {
         }
 
         Product product = new Product(name, x, y, price, unitOfMeasure, nameOfOrg, annualTurnover,type);
-        if(id!=null) {
+        if (id != null) {
             product.setId(id);
         }
         try {

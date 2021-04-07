@@ -1,8 +1,12 @@
 package product;
 
 import java.time.ZonedDateTime;
+import java.util.HashSet;
 
-public class Product{
+public class Product {
+    private static final HashSet<Long> IDs = new HashSet<>();
+    private static long currentID = 1;
+
     private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
@@ -12,7 +16,7 @@ public class Product{
     private Organization manufacturer; //Поле не может быть null
 
     public Product(String name, Coordinates coordinates, Double price, UnitOfMeasure unitOfMeasure, Organization manufacturer) {
-        this.id = (Long)Math.round((double) Math.random()*2147483647);
+        this.id = -1L;
         this.name = name;
         this.coordinates = coordinates;
         this.price = price;
@@ -22,7 +26,7 @@ public class Product{
     }
 
     public Product(String name, int x, int y, Double price, UnitOfMeasure unitOfMeasure, String nameOfOrg, Double annualTurnover, OrganizationType type) {
-        this.id = (Long)Math.round((double) Math.random()*2147483647);
+        this.id = -1L;
         this.name = name;
         this.coordinates = new Coordinates(x,y);
         this.price = price;
@@ -33,11 +37,27 @@ public class Product{
 
 
     public Long getId() {
+        if (id == -1) {
+            while (IDs.contains(currentID)) {
+                currentID++;
+            }
+            id = currentID;
+            IDs.add(id);
+        }
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
+        if (IDs.contains(id)) {
+            //ignore new id
+            return;
+        }
+        IDs.add(id);
         this.id = id;
+    }
+
+    public void removeByID() {
+        IDs.remove(id);
     }
 
     public String getName() {
@@ -90,8 +110,13 @@ public class Product{
 
     @Override
     public String toString() {
-        String s = "";
-        s+=" id: "+ this.id.toString()+",\n name: "+this.name+",\n coordinates: \n"+this.coordinates.toString()+",\n creationDate: "+this.creationDate.toString()+",\n price: "+this.price.toString()+",\n unitOfMeasure: "+this.unitOfMeasure.toString()+",\n manufacturer: \n"+this.manufacturer.toString();
-        return s;
+        return " id: " + getId() +
+                ",\n name: " + name +
+                ",\n coordinates: \n" + coordinates +
+                ",\n creationDate: " + creationDate +
+                ",\n price: " + price +
+                ",\n unitOfMeasure: " + unitOfMeasure +
+                ",\n manufacturer: \n" + manufacturer +
+                "\n____________\n";
     }
 }
