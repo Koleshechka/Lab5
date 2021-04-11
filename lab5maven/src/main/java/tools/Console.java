@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import commands.*;
 import product.Product;
 
+import javax.naming.NoPermissionException;
 import java.io.*;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -131,7 +132,7 @@ public class Console {
      */
     public String show() {
         if (collection.size()==0) {
-            System.out.println("В коллекции нет элементов.");
+            System.out.print("В коллекции нет элементов.");
         }
         StringBuilder s = new StringBuilder();
         for (Product product : collection) {
@@ -229,13 +230,17 @@ public class Console {
      * @throws IOException
      */
     public void writing() throws IOException {
-        OutputStream g = new FileOutputStream("output.json");
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.findAndRegisterModules();
-        OutputStreamWriter gg = new OutputStreamWriter(g);
-        gg.write(mapper.writeValueAsString(collection));
-        gg.close();
-        System.out.println("Коллекция сохранена в файл.");
+        try {
+            OutputStream g = new FileOutputStream("output.json");
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.findAndRegisterModules();
+            OutputStreamWriter gg = new OutputStreamWriter(g);
+            gg.write(mapper.writeValueAsString(collection));
+            gg.close();
+            System.out.println("Коллекция сохранена в файл.");
+        }catch(Exception e) {
+            System.out.println("Невозможно сохранить коллекцию в файл.");
+        }
     }
 
     /**

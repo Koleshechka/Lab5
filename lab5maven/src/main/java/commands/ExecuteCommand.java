@@ -3,6 +3,7 @@ package commands;
 import tools.Console;
 
 import java.io.*;
+import java.nio.file.NoSuchFileException;
 import java.util.HashSet;
 import java.util.NoSuchElementException;
 
@@ -26,6 +27,7 @@ public class ExecuteCommand {
             throw new IOException("Не надо строить циклы из script файлов!");
         }
         try {
+            if (arg.equals("/dev/zero") || arg.equals("/dev/random")) {throw new NullPointerException();}
             InputStream stream = new FileInputStream(arg);
             fileNames.add(arg);
             console.reading(stream);
@@ -34,6 +36,10 @@ public class ExecuteCommand {
             stream.close();
         }catch (NoSuchElementException e) {
             System.out.println("Не найден аргумент - имя script файла.");
+        } catch (NullPointerException e) {
+            System.out.println("Введите корректный файл.");
+        } catch (Exception e) {
+            System.out.println("Файл не найден.");
         }
     }
 }
