@@ -6,7 +6,18 @@ import java.io.InputStream;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * Класс-команда update.
+ * @author Koleshechka
+ */
 public class UpdateCommand {
+    /**
+     * Обновляет элемент коллекции, id которого равен заданному.
+     * @param console
+     * @param arg
+     * @param scanner
+     * @param isFile
+     */
     public static void update(Console console, String arg, Scanner scanner, boolean isFile) {
         try {
             long id = Long.parseLong(arg);

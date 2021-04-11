@@ -2,6 +2,10 @@ package product;
 
 import java.util.HashSet;
 
+/**
+ * Класс организации.
+ * @author Koleshechka
+ */
 public class Organization {
 
     private static final HashSet<Long> IDs = new HashSet<>();
@@ -36,30 +40,6 @@ public class Organization {
         }
         IDs.add(id);
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Double getAnnualTurnover() {
-        return annualTurnover;
-    }
-
-    public void setAnnualTurnover(Double annualTurnover) {
-        this.annualTurnover = annualTurnover;
-    }
-
-    public OrganizationType getType() {
-        return type;
-    }
-
-    public void setType(OrganizationType type) {
-        this.type = type;
     }
 
     @Override

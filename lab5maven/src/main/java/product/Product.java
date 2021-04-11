@@ -3,6 +3,11 @@ package product;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 
+/**
+ * Класс из задачи.
+ * Класс продукта.
+ * @author Koleshechka
+ */
 public class Product {
     private static final HashSet<Long> IDs = new HashSet<>();
     private static long currentID = 1;
@@ -60,22 +65,6 @@ public class Product {
         IDs.remove(id);
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Coordinates getCoordinates() {
-        return coordinates;
-    }
-
-    public void setCoordinates(Coordinates coordinates) {
-        this.coordinates = coordinates;
-    }
-
     public ZonedDateTime getCreationDate() {
         return creationDate;
     }
@@ -88,25 +77,6 @@ public class Product {
         return price;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public UnitOfMeasure getUnitOfMeasure() {
-        return unitOfMeasure;
-    }
-
-    public void setUnitOfMeasure(UnitOfMeasure unitOfMeasure) {
-        this.unitOfMeasure = unitOfMeasure;
-    }
-
-    public Organization getManufacturer() {
-        return manufacturer;
-    }
-
-    public void setManufacturer(Organization manufacturer) {
-        this.manufacturer = manufacturer;
-    }
 
     @Override
     public String toString() {

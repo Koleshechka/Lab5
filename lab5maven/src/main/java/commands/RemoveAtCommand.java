@@ -2,7 +2,16 @@ package commands;
 
 import tools.Console;
 
+/**
+ * Класс-команда remove-at.
+ * @author Koleshechka
+ */
 public class RemoveAtCommand {
+    /**
+     * Удаляет элемент, аходящийся в заданной позиции.
+     * @param console
+     * @param arg
+     */
     public static void removeAt(Console console, String arg) {
         try {
             int index = Integer.parseInt(arg);

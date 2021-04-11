@@ -5,7 +5,18 @@ import java.util.Scanner;
 import tools.*;
 import product.*;
 
+/**
+ * Класс-команда Add.
+ * @author Koleshechka
+ */
 public class AddCommand {
+    /**
+     * Интерактивный метод добавляения нового элемента в коллекцию.
+     * @param console
+     * @param scanner
+     * @param id
+     * @param isFile
+     */
     public static void add(Console console, Scanner scanner, Long id, boolean isFile) {
         String name = "";
         int x = 0;

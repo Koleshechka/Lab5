@@ -6,10 +6,21 @@ import java.io.*;
 import java.util.HashSet;
 import java.util.NoSuchElementException;
 
+/**
+ * Класс-команда execute_script.
+ * @author Koleshechka
+ */
 public class ExecuteCommand {
 
     static HashSet<String> fileNames = new HashSet<>();
 
+    /**
+     * Выполняет скрипт из переданного файла.
+     * @param console
+     * @param arg
+     * @throws IOException
+     * @throws NoSuchElementException
+     */
     public static void execute(Console console, String arg) throws IOException, NoSuchElementException {
         if (fileNames.contains(arg)) {
             throw new IOException("Не надо строить циклы из script файлов!");

@@ -2,7 +2,16 @@ package commands;
 
 import tools.*;
 
+/**
+ * Класс-команда remove_by_id.
+ * @author Koleshechka
+ */
 public class RemoveCommand {
+    /**
+     * Удаляет элемент коллекции с заданным id.
+     * @param console
+     * @param arg
+     */
     public static void remove(Console console, String arg){
         try {
             Long id = Long.parseLong(arg);

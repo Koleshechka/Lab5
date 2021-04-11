@@ -16,7 +16,11 @@ import org.json.simple.parser.ParseException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-
+/**
+ * Класс парсера для чтения коллекции из json-файла.
+ *
+ * @author Koleshechka
+ */
 
 public class JsonParser {
     private final String path;

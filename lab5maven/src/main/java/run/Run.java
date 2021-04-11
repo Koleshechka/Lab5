@@ -2,12 +2,14 @@ package run;
 
 import tools.*;
 
-
-
+/**
+ * Main-class приложения.
+ *
+ * @author Koleshechka
+ */
 public class Run {
     public static void main(String[] args) {
         String path ="";
-        //path = "/Users/svetlana/Documents/GitHub/Lab5/lab5maven/src/main/java/input.jso";
         try {
             path = args[0];
         }catch (ArrayIndexOutOfBoundsException e) {

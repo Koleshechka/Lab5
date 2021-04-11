@@ -2,7 +2,16 @@ package commands;
 
 import tools.Console;
 
+/**
+ * Класс-команда remove_all_by_price.
+ * @author Koleshechka
+ */
 public class RemovePrice {
+    /**
+     * Удаляет все элементы коллекции,значения поля price которых эквивалентны заданному.
+     * @param console
+     * @param arg
+     */
     public static void removePrice(Console console, String arg){
         try {
             Double price = Double.parseDouble(arg);

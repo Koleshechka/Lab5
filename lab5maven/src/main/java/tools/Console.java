@@ -9,12 +9,23 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+/**
+ * Класс для работы с коллекцией.
+ *
+ * @author Koleshechka
+ */
 
 public class Console {
     private final LinkedList<Product> collection = new LinkedList<>();
     private final HashMap<String, String> map = new HashMap<>();
     private ZonedDateTime collectionDate = ZonedDateTime.now();
 
+    /**
+     * Конструктор класса консоли.
+     * Создает объект консоли, создает объект парсера для получания значений из json-файла.
+     * Получает время создания коллекции.
+     * @param path
+     */
     public Console(String path) {
         JsonParser jsonParser = new JsonParser(path);
         collection.addAll(jsonParser.reading());
@@ -96,15 +107,28 @@ public class Console {
         }
     }
 
+    /**
+     * Метод добавляет новый элемент в коллекцию.
+     * @param product
+     */
     public void addToCollection(Product product) {
         this.collection.add(product);
         collection.sort(Comparator.comparing(Product::getCreationDate));
     }
 
+    /**
+     * Метод отображение информации о коллекции.
+     * @return
+     */
     public String info() {
         return "LinkedList <Product> collection, "+ DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(collectionDate)+", "+ collection.size() + " elements.";
     }
 
+    /**
+     * Метод отображения коллекции.
+     * Возвращает строку с элементами коллекции.
+     * @return
+     */
     public String show() {
         if (collection.size()==0) {
             System.out.println("В коллекции нет элементов.");
@@ -116,6 +140,11 @@ public class Console {
         return s.toString();
     }
 
+    /**
+     * Удаляет элемент коллекции по его id.
+     * @param id
+     * @return
+     */
     public boolean removeId(long id) {
         int i = 0;
         for (Product product : collection) {
@@ -127,6 +156,9 @@ public class Console {
         return false;
     }
 
+    /**
+     * Удаляет все элементы коллекции.
+     */
     public void clear() {
         if (collection.size() != 0) {
             while (collection.size() > 0) {
@@ -137,7 +169,11 @@ public class Console {
         else System.out.println("В коллекции и так нет элементов.");
     }
 
-
+    /**
+     * Удаляет элемент коллекции по его индексу.
+     * @param index
+     * @return
+     */
     public boolean removeIndex(int index) {
         if (index < collection.size()) {
             collection.get(index).removeByID();
@@ -147,10 +183,19 @@ public class Console {
         return false;
     }
 
+    /**
+     * Удаляет первый элеменрт коллекции.
+     * @return
+     */
     public boolean removeFirst(){
         return removeIndex(0);
     }
 
+    /**
+     * Удаляет все элементы коллекции, имеющие заданнную цену.
+     * @param price
+     * @return
+     */
     public boolean removePrice(Double price) {
         int i = 0;
         boolean isPrice = false;
@@ -165,6 +210,9 @@ public class Console {
         return isPrice;
     }
 
+    /**
+     * Выводит уникальные значения цены элементов.
+     */
     public void getPrice() {
 
         HashSet<Double> priceSet = new HashSet<>();
@@ -176,7 +224,10 @@ public class Console {
         } else System.out.println("В коллекции нет элементов.");
     }
 
-
+    /**
+     * Метод для сохранения коллекции в файл.
+     * @throws IOException
+     */
     public void writing() throws IOException {
         OutputStream g = new FileOutputStream("output.json");
         ObjectMapper mapper = new ObjectMapper();
@@ -187,8 +238,10 @@ public class Console {
         System.out.println("Коллекция сохранена в файл.");
     }
 
-
-
+    /**
+     * Метод для интерактивного чтения команд.
+     * @param stream
+     */
     public void reading(InputStream stream) {
         String command;
         Scanner scanner = new Scanner(stream);

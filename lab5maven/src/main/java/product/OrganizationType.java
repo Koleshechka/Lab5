@@ -1,5 +1,9 @@
 package product;
 
+/**
+ * Перечисление типов организации.
+ * @author Koleshechka
+ */
 public enum OrganizationType {
     COMMERCIAL,
     PUBLIC,
