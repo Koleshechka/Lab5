@@ -1,26 +1,32 @@
 package tools;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import product.*;
 import commands.*;
+import product.Product;
 
 import java.io.*;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+
 public class Console {
-    private final LinkedList <Product> collection = new LinkedList<>();
+    private final LinkedList<Product> collection = new LinkedList<>();
     private final HashMap<String, String> map = new HashMap<>();
-    private final ZonedDateTime collectionDate;
+    private ZonedDateTime collectionDate = ZonedDateTime.now();
 
     public Console(String path) {
         JsonParser jsonParser = new JsonParser(path);
         collection.addAll(jsonParser.reading());
-        LinkedList <ZonedDateTime> dateList = new LinkedList<>();
-        for (Product product : collection) {
-            dateList.add(product.getCreationDate());
+        try {
+            LinkedList<ZonedDateTime> dateList = new LinkedList<>();
+            for (Product product : collection) {
+                dateList.add(product.getCreationDate());
+            }
+            collectionDate = Collections.min(dateList);
+        } catch (Exception e) {
+            System.out.println(" ");
         }
-        collectionDate = Collections.min(dateList);
 
         collection.sort(Comparator.comparing(Product::getCreationDate));
     }
@@ -32,25 +38,62 @@ public class Console {
     public void read(String s, Scanner scanner, boolean isFile) throws IOException {
         String[] commandAll = s.split(" ");
         String command = commandAll[0];
-        switch(command) {
-            case "help": HelpCommand.help();break;
-            case "info": InfoCommand.info(this);break;
-            case "show": ShowCommand.show(this);break;
-            case "add": AddCommand.add(this, scanner,null, isFile);break;
-            case "update": UpdateCommand.update(this, commandAll[1], scanner, isFile);break;
-            case "remove_by_id": RemoveCommand.remove(this, commandAll[1]);break;
-            case "clear": ClearCommand.clear(this);break;
-            case "exit": ExitCommand.exit();break;
-            case "remove_at": RemoveAtCommand.removeAt(this, commandAll[1]);break;
-            case "remove_first": RemoveFirstCommand.removeFirst(this);break;
-            case "remove_all_by_price": RemovePrice.removePrice(this, commandAll[1]);break;
-            case "print_unique_price": PrintPriceCommand.printPrice(this);break;
-            case "save": SaveCommand.save(this);break;
-            case "print_ascending": PrintAscendingCommand.printAscending(this);break;
-            case "execute_script": ExecuteCommand.execute(this, commandAll[1]);break;
-            case "sort": SortCommand.sort(this);break;
-            default: System.out.println("Неверная команда. Введите help для справки по доступным командам.");
+        try {
+            switch (command) {
+                case "help":
+                    HelpCommand.help();
+                    break;
+                case "info":
+                    InfoCommand.info(this);
+                    break;
+                case "show":
+                    ShowCommand.show(this);
+                    break;
+                case "add":
+                    AddCommand.add(this, scanner, null, isFile);
+                    break;
+                case "update":
+                    UpdateCommand.update(this, commandAll[1], scanner, isFile);
+                    break;
+                case "remove_by_id":
+                    RemoveCommand.remove(this, commandAll[1]);
+                    break;
+                case "clear":
+                    ClearCommand.clear(this);
+                    break;
+                case "exit":
+                    ExitCommand.exit();
+                    break;
+                case "remove_at":
+                    RemoveAtCommand.removeAt(this, commandAll[1]);
+                    break;
+                case "remove_first":
+                    RemoveFirstCommand.removeFirst(this);
+                    break;
+                case "remove_all_by_price":
+                    RemovePrice.removePrice(this, commandAll[1]);
+                    break;
+                case "print_unique_price":
+                    PrintPriceCommand.printPrice(this);
+                    break;
+                case "save":
+                    SaveCommand.save(this);
+                    break;
+                case "print_ascending":
+                    PrintAscendingCommand.printAscending(this);
+                    break;
+                case "execute_script":
+                    ExecuteCommand.execute(this, commandAll[1]);
+                    break;
+                case "sort":
+                    SortCommand.sort(this);
+                    break;
+                default:
+                    System.out.println("Неверная команда. Введите help для справки по доступным командам.");
             }
+        }catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Введите необходимый аргумент.");
+        }
     }
 
     public void addToCollection(Product product) {
@@ -59,7 +102,7 @@ public class Console {
     }
 
     public String info() {
-        return "LinkedList <Product> collection, "+ collectionDate.toString()+", "+ collection.size() + " elements.";
+        return "LinkedList <Product> collection, "+ DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(collectionDate)+", "+ collection.size() + " elements.";
     }
 
     public String show() {

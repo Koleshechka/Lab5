@@ -8,7 +8,7 @@ import java.io.*;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.LinkedList;
-
+import java.util.NoSuchElementException;
 
 
 import org.json.simple.JSONArray;
@@ -36,8 +36,8 @@ public class JsonParser {
             //productJsonArray = (JSONArray) productsJsonObject.get("products");
             productJsonArray = (JSONArray) parser.parse(reader);
         } catch (FileNotFoundException e) {
-            System.out.println("Файл с коллекцией не найден." + e.toString());
-        } catch (IOException e) {
+            System.out.println("Файл с коллекцией не найден.");
+        } catch (IOException | NoSuchElementException e) {
             System.out.println(e.toString());
         } catch (ParseException e) {
             System.out.println("Parsing Error");

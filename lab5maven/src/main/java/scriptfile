@@ -1,4 +1,3 @@
-execute_script /Users/svetlana/Documents/GitHub/Lab5/lab5maven/src/main/java/scriptfile2
+execute_script scriptfile2
 show
-^D
-execute_script /Users/svetlana/Documents/GitHub/Lab5/lab5maven/src/main/java/scriptfile2
+execute_script scriptfile2

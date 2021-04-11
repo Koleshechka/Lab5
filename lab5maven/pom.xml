@@ -32,14 +32,23 @@
                     <finalName>lab5maven</finalName>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>15</source>
+                    <target>15</target>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
-
     <properties>
-        <maven.compiler.source>15</maven.compiler.source>
+        <maven.compiler.sorce>15</maven.compiler.sorce>
         <maven.compiler.target>15</maven.compiler.target>
     </properties>
+
+
 
     <dependencies>
         <dependency>
