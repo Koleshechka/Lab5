@@ -24,7 +24,7 @@ public class AddCommand {
         double price = 0.0;
         UnitOfMeasure unitOfMeasure = null;
         String nameOfOrg = "";
-        double annualTurnover = 0.0;
+        Double annualTurnover = 0.0;
         OrganizationType type = null;
 
         while (true) {
@@ -112,7 +112,7 @@ public class AddCommand {
         while (true) {
             System.out.println("Введите название организации:");
             nameOfOrg = ReadCommand.readForAdd(scanner);
-            if (nameOfOrg == "") {
+            if (nameOfOrg.equals("")) {
                 if (isFile) {
                     System.out.println("Неправильный формат, мы не сможем добавить этот элемент в коллекцию.");
                     return;
@@ -124,10 +124,16 @@ public class AddCommand {
         while (true) {
             System.out.println("Введите годовой оборот организации");
             try {
-                annualTurnover = Double.parseDouble(ReadCommand.readForAdd(scanner));
-                if (annualTurnover <=0) {
-                    throw new NumberFormatException("");
-                } else break;
+                String annualTurnoverString = ReadCommand.readForAdd(scanner);
+                if(annualTurnoverString.equals("")) {
+                    annualTurnover = null;
+                    break;
+                }else {
+                    annualTurnover = Double.parseDouble(annualTurnoverString);
+                    if (annualTurnover <= 0) {
+                        throw new NumberFormatException("");
+                    } else break;
+                }
             } catch (NumberFormatException e) {
                 if (isFile) {
                     System.out.println("Неправильный формат, мы не сможем добавить этот элемент в коллекцию.");

@@ -1,11 +1,11 @@
 [
   {
-    "id": "",
+    "id": 6,
     "name": "Pain",
     "coordinates":
     {
-      "x": null,
-      "y": null
+      "x": 46,
+      "y": 1
     },
     "creationDate": "",
     "price": 59.99,
@@ -18,7 +18,7 @@
     }
   },
   {
-    "id": "",
+    "id": 4,
     "name": "Tears",
     "coordinates":
     {

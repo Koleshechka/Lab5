@@ -12,6 +12,6 @@ public class PrintAscendingCommand {
      * @param console
      */
     public static void printAscending(Console console) {
-        System.out.println(console.show());
+        System.out.println(console.printAscending());
     }
 }

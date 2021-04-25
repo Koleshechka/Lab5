@@ -8,7 +8,7 @@ import java.util.HashSet;
  * Класс продукта.
  * @author Koleshechka
  */
-public class Product {
+public class Product implements Comparable<Product> {
     private static final HashSet<Long> IDs = new HashSet<>();
     private static long currentID = 1;
 
@@ -88,5 +88,17 @@ public class Product {
                 ",\n unitOfMeasure: " + unitOfMeasure +
                 ",\n manufacturer: \n" + manufacturer +
                 "\n____________\n";
+    }
+
+    @Override
+    public int compareTo(Product product) {
+        /*
+        if (this.getPrice()<product.getPrice()) {
+            return -1;
+        } else if (product.getPrice()<this.getPrice()) {
+            return 1;
+        } else return 0;
+         */
+        return Double.compare(this.getPrice(), product.getPrice());
     }
 }

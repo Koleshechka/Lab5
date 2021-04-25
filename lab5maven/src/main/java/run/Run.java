@@ -14,6 +14,7 @@ public class Run {
             path = args[0];
         }catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Аргумент - имя файла не найден.");
+
         }
         Console console = new Console(path);
         try {

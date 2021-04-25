@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import commands.*;
 import product.Product;
 
-import javax.naming.NoPermissionException;
 import java.io.*;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -39,8 +38,6 @@ public class Console {
         } catch (Exception e) {
             System.out.println(" ");
         }
-
-        collection.sort(Comparator.comparing(Product::getCreationDate));
     }
 
     public Console() {
@@ -114,7 +111,6 @@ public class Console {
      */
     public void addToCollection(Product product) {
         this.collection.add(product);
-        collection.sort(Comparator.comparing(Product::getCreationDate));
     }
 
     /**
@@ -139,6 +135,25 @@ public class Console {
             s.append(product.toString());
         }
         return s.toString();
+    }
+
+    /**
+     * Метод сортировки коллекции в естественном порядке.
+     * @return
+     */
+    public String productSort() {
+        Collections.sort(collection);
+        return "Коллекция отсортирована в естественном порядке.";
+    }
+
+    /**
+     * Метод вывода отсортированной в естественном порядке коллекции.
+     * @return
+     */
+    public String printAscending() {
+        Comparator<Product> productComparator = new ProductComparator();
+        Collections.sort(collection, productComparator);
+        return show();
     }
 
     /**

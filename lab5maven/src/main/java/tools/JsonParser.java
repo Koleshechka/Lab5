@@ -171,8 +171,9 @@ public class JsonParser {
                     minicollection.add(product);
                 }
             }
+        } catch (NumberFormatException e) {
+            System.out.println("Неверный формат числа.");
         } catch (Exception e) {
-            System.out.println(e.toString());
         }
         return minicollection;
     }
