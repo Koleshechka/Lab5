@@ -42,35 +42,3 @@ print_unique_price : вывести уникальные значения пол
 При некорректном пользовательском вводе (введена строка, не являющаяся именем константы в enum'е; введена строка вместо числа; введённое число не входит в указанные границы и т.п.) должно быть показано сообщение об ошибке и предложено повторить ввод поля.
 Для ввода значений null использовать пустую строку.
 Поля с комментарием "Значение этого поля должно генерироваться автоматически" не должны вводиться пользователем вручную при добавлении.
-
-public class Product {
-    private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
-    private String name; //Поле не может быть null, Строка не может быть пустой
-    private Coordinates coordinates; //Поле не может быть null
-    private java.time.ZonedDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
-    private Double price; //Поле не может быть null, Значение поля должно быть больше 0
-    private UnitOfMeasure unitOfMeasure; //Поле не может быть null
-    private Organization manufacturer; //Поле не может быть null
-}
-public class Coordinates {
-    private int x;
-    private int y;
-}
-public class Organization {
-    private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
-    private String name; //Поле не может быть null, Строка не может быть пустой
-    private Double annualTurnover; //Поле может быть null, Значение поля должно быть больше 0
-    private OrganizationType type; //Поле не может быть null
-}
-public enum UnitOfMeasure {
-    KILOGRAMS,
-    CENTIMETERS,
-    LITERS;
-}
-public enum OrganizationType {
-    COMMERCIAL,
-    PUBLIC,
-    GOVERNMENT,
-    PRIVATE_LIMITED_COMPANY,
-    OPEN_JOINT_STOCK_COMPANY;
-}
